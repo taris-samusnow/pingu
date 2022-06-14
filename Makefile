@@ -1,4 +1,4 @@
-NAME = pingu
+NAME = puing
 BIN := bin/$(NAME)
 
 # version e.g. v0.0.1

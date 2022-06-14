@@ -1,4 +1,4 @@
-module github.com/sheepla/pingu
+module github.com/sheepla/puing
 
 go 1.18
 

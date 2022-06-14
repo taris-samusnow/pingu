@@ -1,27 +1,22 @@
 <div align="right">
 
-![golangci-lint](https://github.com/sheepla/pingu/actions/workflows/golangci-lint.yml/badge.svg)
-![release](https://github.com/sheepla/pingu/actions/workflows/release.yml/badge.svg)
-
 </div>
-
 
 <div align="center">
 
-# 🐧 pingu
+# ▗( ◕ ̬̫ ◕ )▖ puing
 
-`ping` command implementation but with pingu ascii art
+`ping` command implementation but with puing ascii art
 
 
 ![Language:Go](https://img.shields.io/static/v1?label=Language&message=Go&color=blue&style=flat-square)
 ![License:MIT](https://img.shields.io/static/v1?label=License&message=MIT&color=blue&style=flat-square)
-[![Latest Release](https://img.shields.io/github/v/release/sheepla/pingu?style=flat-square)](https://github.com/sheepla/pingu/releases/latest)
 
 </div>
 
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/62412884/173192079-a6229925-2575-476c-9bb1-b5f0c6e2dbfc.png" width="70%" alt="screenshot" />
+<img src="images/alice-puing.png width="70%" alt="screenshot" />
 
 </div>
 
@@ -31,9 +26,9 @@ Simply specify the target host name or IP address in the first argument.
 
 ```
 Usage:
-  pingu [OPTIONS] HOST
+  puing [OPTIONS] HOST
 
-`ping` command but with pingu
+`ping` command but with puing
 
 Application Options:
   -V, --version  Show version
@@ -43,11 +38,6 @@ Help Options:
 ```
 
 ## Installation
-
-You can download executable binaries from the latest release page.
-
-> [![Latest Release](https://img.shields.io/github/v/release/sheepla/pingu?style=flat-square)](https://github.com/sheepla/pingu/releases/latest)
-
 To build from source, clone this repository then run `go install`. Developing on `go1.18.3 linux/amd64`.
 
 ## LICENSE
@@ -56,5 +46,5 @@ To build from source, clone this repository then run `go install`. Developing on
 
 ## Author
 
-[Sheepla](https://github.com/sheepla)
+[Taris](https://github.com/taris-samusnow)
 
