@@ -16,7 +16,7 @@
 
 <div align="center">
 
-<img src="images/alice-puing.png width="70%" alt="screenshot" />
+<img src="https://github.com/taris-samusnow/pingu/raw/master/images/alice-puing.png" width="70%" alt="screenshot" />
 
 </div>
 
