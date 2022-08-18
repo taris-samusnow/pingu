@@ -182,8 +182,9 @@ func renderASCIIArt(idx int) string {
 	line := puing[imageCnt]
 
 	line = colorize(line, 'R', color.New(color.BgRed, color.Bold))
+	line = colorize(line, 'M', color.New(color.BgHiMagenta, color.Bold))
 	line = colorize(line, 'Y', color.New(color.BgHiYellow, color.Bold))
-	line = colorize(line, 'I', color.New(color.BgHiYellow, color.Bold))
+	line = colorize(line, 'I', color.New(color.BgYellow, color.Bold))
 	line = colorize(line, 'A', color.New(color.BgBlue, color.Bold))
 	line = colorize(line, 'C', color.New(color.BgCyan, color.Bold))
 	line = colorize(line, 'B', color.New(color.BgHiBlack, color.Bold))
