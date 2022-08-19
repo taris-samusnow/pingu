@@ -6,7 +6,7 @@
 
 # ▗( ◕ ̬̫ ◕ )▖ puing
 
-`ping` command implementation but with puing ascii art
+`ping` command implementation in Go but with colorful output and puing ascii art
 
 
 ![Language:Go](https://img.shields.io/static/v1?label=Language&message=Go&color=blue&style=flat-square)
@@ -16,13 +16,20 @@
 
 <div align="center">
 
-<img src="https://github.com/taris-samusnow/pingu/raw/master/images/alice-puing.png" width="70%" alt="screenshot" />
+<img src="https://github.com/taris-samusnow/puing/raw/master/images/alice-puing.png" width="70%" alt="screenshot" />
 
 </div>
 
+## Features
+- [x] Colorful and fun output.
+- [x] Cross-platform support: Windows, macOS and Linux (also WSL)
+- [x] It works with a single executable file, so it can be installed easily.
+- [x] Surpports IPv4 and IPv6.
+
 ## Usage
 
-Simply specify the target host name or IP address in the first argument.
+Simply specify the target host name or IP address in the first argument e.g. `puing github.com` or `puing 13.114.40.48`.
+You can change the number of transmissions by specifying the `-c` option.
 
 ```
 Usage:
@@ -31,14 +38,47 @@ Usage:
 `ping` command but with puing
 
 Application Options:
-  -V, --version  Show version
+  -c, --count=     Stop after <count> replies (default: 20)
+  -P, --privilege  Enable privileged mode
+  -V, --version    Show version
 
 Help Options:
-  -h, --help     Show this help message
+  -h, --help       Show this help message
 ```
 
 ## Installation
-To build from source, clone this repository then run `go install`. Developing on `go1.18.3 linux/amd64`.
+
+### Download executable binaries
+
+You can download executable binaries from the latest release page.
+
+> [![Latest Release](https://img.shields.io/github/v/release/sheepla/puing?style=flat-square)](https://github.com/sheepla/puing/releases/latest)
+
+### Build from source
+
+To build from source, clone this repository then run `make build` or `go install`. Develo*ping* on `go1.19 windows/amd64`.
+
+Another way to install it if you have go in your machine just:
+
+```sh
+go install github.com/sheepla/puing@latest
+```
+
+### WSL support
+
+To run on WSL, give `CAP_NET_RAW` capability with the following command and start it with the `-P`, `--privilege` option.
+
+```
+sudo setcap cap_net_raw=+ep /path/to/puing
+```
+
+```
+puing -P github.com
+```
+
+*c.f.*
+
+> [Capability - Arch Linux Wiki](https://wiki.archlinux.org/title/Capabilities)
 
 ## LICENSE
 
