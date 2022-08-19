@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/fatih/color"
 	"github.com/go-ping/ping"
+	"github.com/gookit/color"
 	"github.com/jessevdk/go-flags"
 )
 
@@ -40,12 +40,7 @@ func main() {
 	imageCnt = 0
 	code, err := run(os.Args[1:])
 	if err != nil {
-		fmt.Fprintf(
-			color.Error,
-			"[ %v ] %s\n",
-			color.New(color.FgRed, color.Bold).Sprint("ERROR"),
-			err,
-		)
+		color.Error.Println("ERROR")
 	}
 
 	os.Exit(int(code))
@@ -112,7 +107,7 @@ func initPinger(host string) (*ping.Pinger, error) {
 		pinger.Stop()
 	}()
 
-	color.New(color.FgHiWhite, color.Bold).Printf(
+	color.New(color.FgWhite, color.Bold).Printf(
 		"PING %s (%s) type `Ctrl-C` to abort\n",
 		pinger.Addr(),
 		pinger.IPAddr(),
@@ -130,78 +125,81 @@ func initPinger(host string) (*ping.Pinger, error) {
 
 // nolint:forbidigo
 func pingerOnrecv(pkt *ping.Packet) {
-	fmt.Fprintf(
-		color.Output,
+	fmt.Printf(
 		"%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
 		renderASCIIArt(imageCnt),
-		color.New(color.FgHiYellow, color.Bold).Sprintf("%d", pkt.Seq),
-		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
+		color.New(color.FgYellow, color.Bold).Sprintf("%d", pkt.Seq),
+		color.New(color.FgBlue, color.Bold).Sprintf("%d", pkt.Nbytes),
 		color.New(color.FgWhite, color.Bold).Sprintf("%s", pkt.IPAddr),
-		color.New(color.FgHiCyan, color.Bold).Sprintf("%d", pkt.Ttl),
-		color.New(color.FgHiMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
+		color.New(color.FgCyan, color.Bold).Sprintf("%d", pkt.Ttl),
+		color.New(color.FgMagenta, color.Bold).Sprintf("%v", pkt.Rtt),
 	)
 	imageCnt++
 }
 
 // nolint:forbidigo
 func pingerOnFinish(stats *ping.Statistics) {
-	color.New(color.FgWhite, color.Bold).Fprintf(
-		color.Output,
+	color.New(color.FgWhite, color.Bold).Printf(
 		"\n───────── %s ping statistics ─────────\n",
 		stats.Addr,
 	)
-	fmt.Fprintf(
-		color.Output,
+	fmt.Printf(
 		"%s: %v transmitted => %v received (%v loss)\n",
-		color.New(color.FgHiWhite, color.Bold).Sprintf("PACKET STATISTICS"),
-		color.New(color.FgHiBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
-		color.New(color.FgHiGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
-		color.New(color.FgHiRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
+		color.New(color.FgWhite, color.Bold).Sprintf("PACKET STATISTICS"),
+		color.New(color.FgBlue, color.Bold).Sprintf("%d", stats.PacketsSent),
+		color.New(color.FgGreen, color.Bold).Sprintf("%d", stats.PacketsRecv),
+		color.New(color.FgRed, color.Bold).Sprintf("%v%%", stats.PacketLoss),
 	)
-	fmt.Fprintf(
-		color.Output,
+	fmt.Printf(
 		"%s: min=%v avg=%v max=%v stddev=%v\n",
-		color.New(color.FgHiWhite, color.Bold).Sprintf("ROUND TRIP"),
-		color.New(color.FgHiBlue, color.Bold).Sprintf("%v", stats.MinRtt),
-		color.New(color.FgHiCyan, color.Bold).Sprintf("%v", stats.AvgRtt),
-		color.New(color.FgHiGreen, color.Bold).Sprintf("%v", stats.MaxRtt),
+		color.New(color.FgWhite, color.Bold).Sprintf("ROUND TRIP"),
+		color.New(color.FgBlue, color.Bold).Sprintf("%v", stats.MinRtt),
+		color.New(color.FgCyan, color.Bold).Sprintf("%v", stats.AvgRtt),
+		color.New(color.FgGreen, color.Bold).Sprintf("%v", stats.MaxRtt),
 		color.New(color.FgMagenta, color.Bold).Sprintf("%v", stats.StdDevRtt),
 	)
 }
 
 func renderASCIIArt(idx int) string {
-	/**
-	if len(puing) <= idx {
-		return strings.Repeat(" ", len(puing[0]))
-	}
-	**/
+
 	if len(puing) <= idx {
 		imageCnt = 0
 	}
 
 	line := puing[imageCnt]
 
-	line = colorize(line, 'R', color.New(color.BgRed, color.Bold))
-	line = colorize(line, 'M', color.New(color.BgHiMagenta, color.Bold))
-	line = colorize(line, 'Y', color.New(color.BgHiYellow, color.Bold))
-	line = colorize(line, 'I', color.New(color.BgYellow, color.Bold))
-	line = colorize(line, 'A', color.New(color.BgBlue, color.Bold))
-	line = colorize(line, 'C', color.New(color.BgCyan, color.Bold))
-	line = colorize(line, 'B', color.New(color.BgHiBlack, color.Bold))
+	//Base colors
+	line = colorize(line, 'B', color.New(color.BgBlack, color.Bold))
 	line = colorize(line, 'W', color.New(color.BgHiWhite, color.Bold))
-	line = lastline(line, '-', color.New(color.FgHiWhite, color.Bold))
+	line = colorize(line, 'C', color.New(color.BgHiCyan, color.Bold))
+	line = colorize(line, 'A', color.New(color.BgCyan, color.Bold))
+
+	//RGB colors
+	line = colorizeRGB(line, 'Y', color.NewRGBStyle(color.RGB(255, 255, 105), color.RGB(255, 255, 105))) // hair color
+	line = colorizeRGB(line, 'K', color.NewRGBStyle(color.RGB(207, 197, 95), color.RGB(207, 197, 95)))   // Shadow 1 of Yellow
+	line = colorizeRGB(line, 'M', color.NewRGBStyle(color.RGB(241, 182, 178), color.RGB(241, 182, 178))) // Mouse color
+	line = colorizeRGB(line, 'N', color.NewRGBStyle(color.RGB(192, 120, 121), color.RGB(192, 120, 121))) // Shadow 1 of Mouse color
+	line = colorizeRGB(line, 'S', color.NewRGBStyle(color.RGB(255, 242, 236), color.RGB(255, 242, 236))) // Skin color
+
+	line = lastline(line, '-', color.New(color.FgWhite, color.Bold))
 	return line
 }
 
-func colorize(text string, target rune, color *color.Color) string {
+func colorize(text string, target rune, color color.Style) string {
 	return strings.ReplaceAll(
 		text,
 		string(target),
 		color.Sprint(" "),
 	)
 }
-
-func lastline(text string, target rune, color *color.Color) string {
+func colorizeRGB(text string, target rune, color *color.RGBStyle) string {
+	return strings.ReplaceAll(
+		text,
+		string(target),
+		color.Sprint(" "),
+	)
+}
+func lastline(text string, target rune, color color.Style) string {
 	return strings.ReplaceAll(
 		text,
 		string(target),
