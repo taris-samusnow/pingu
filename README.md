@@ -16,7 +16,7 @@
 
 <div align="center">
 
-<img src="https://github.com/taris-samusnow/puing/blob/1387e1848abe34a1d4addf793fa3430b14ea22c0/images/alice-puing.png" width="70%" alt="screenshot" />
+<img src="https://github.com/taris-samusnow/puing/blob/857bf7291277d323a96ef52eedfc4c9bdf233453/images/puing_command.gif" width="70%" alt="demo" />
 
 </div>
 
@@ -52,7 +52,7 @@ Help Options:
 
 You can download executable binaries from the latest release page.
 
-> [![Latest Release](https://img.shields.io/github/v/release/sheepla/puing?style=flat-square)](https://github.com/sheepla/puing/releases/latest)
+> [![GitHub release (latest by date)](https://img.shields.io/github/v/release/taris-samusnow/puing)](https://github.com/taris-samusnow/puing/releases/latest)
 
 ### Build from source
 
