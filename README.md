@@ -16,7 +16,7 @@
 
 <div align="center">
 
-<img src="https://github.com/taris-samusnow/puing/blob/857bf7291277d323a96ef52eedfc4c9bdf233453/images/puing_command.gif" width="70%" alt="demo" />
+<img src="https://github.com/taris-samusnow/puing/blob/857bf7291277d323a96ef52eedfc4c9bdf233453/images/puing_command.gif" alt="demo" />
 
 </div>
 
