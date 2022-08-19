@@ -31,7 +31,9 @@ const (
 )
 
 type options struct {
-	Version bool `short:"V" long:"version" description:"Show version"`
+	Count     int  `short:"c" long:"count" default:"20" description:"Stop after <count> replies"`
+	Privilege bool `short:"P" long:"privilege" description:"Enable privileged mode"`
+	Version   bool `short:"V" long:"version" description:"Show version"`
 }
 
 var imageCnt int
@@ -80,7 +82,7 @@ func run(cliArgs []string) (exitCode, error) {
 		return exitCodeErrArgs, errors.New("too many arguments")
 	}
 
-	pinger, err := initPinger(args[0])
+	pinger, err := initPinger(args[0], opts)
 	if err != nil {
 		return exitCodeOK, fmt.Errorf("an error occurred while initializing pinger: %w", err)
 	}
@@ -92,11 +94,13 @@ func run(cliArgs []string) (exitCode, error) {
 	return exitCodeOK, nil
 }
 
-func initPinger(host string) (*ping.Pinger, error) {
+func initPinger(host string, opts options) (*ping.Pinger, error) {
 	pinger, err := ping.NewPinger(host)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init pinger %w", err)
 	}
+
+	pinger.Count = opts.Count
 
 	// Listen for Ctrl-C.
 	c := make(chan os.Signal, 1)
@@ -116,14 +120,13 @@ func initPinger(host string) (*ping.Pinger, error) {
 	pinger.OnRecv = pingerOnrecv
 	pinger.OnFinish = pingerOnFinish
 
-	if runtime.GOOS == "windows" {
+	if opts.Privilege || runtime.GOOS == "windows" {
 		pinger.SetPrivileged(true)
 	}
 
 	return pinger, nil
 }
 
-// nolint:forbidigo
 func pingerOnrecv(pkt *ping.Packet) {
 	fmt.Printf(
 		"%s seq=%s %sbytes from %s: ttl=%s time=%s\n",
@@ -137,7 +140,6 @@ func pingerOnrecv(pkt *ping.Packet) {
 	imageCnt++
 }
 
-// nolint:forbidigo
 func pingerOnFinish(stats *ping.Statistics) {
 	color.New(color.FgWhite, color.Bold).Printf(
 		"\n───────── %s ping statistics ─────────\n",
