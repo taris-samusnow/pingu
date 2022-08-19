@@ -16,7 +16,7 @@
 
 <div align="center">
 
-<img src="https://github.com/taris-samusnow/puing/raw/master/images/alice-puing.png" width="70%" alt="screenshot" />
+<img src="https://github.com/taris-samusnow/puing/blob/1387e1848abe34a1d4addf793fa3430b14ea22c0/images/alice-puing.png" width="70%" alt="screenshot" />
 
 </div>
 
