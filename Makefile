@@ -1,9 +1,23 @@
-NAME = puing.exe
+NAME = puing
 BIN := bin/$(NAME)
 
 # version e.g. v0.0.1
-#VERSION := $(shell git describe --tags --abbrev=0 | tr -d "v")
-VERSION := 0.0.2
+ifeq ($(OS),Windows_NT)
+    # for Windows
+    BIN := bin/$(NAME).exe
+    VERSION := 0.0.2
+else
+    ifeq ($(UNAME),Darwin)
+        # for MacOSX
+        BIN := bin/$(NAME)
+        VERSION := $(shell git describe --tags --abbrev=0 | tr -d "v")
+    else
+    # ifeq ($(UNAME),Darwin)
+        # for Linux
+        BIN := bin/$(NAME)
+        VERSION := $(shell git describe --tags --abbrev=0 | tr -d "v")
+    endif
+endif
 
 # commit hash of HEAD e.g. 3a913f
 REVISION := $(shell git rev-parse --short HEAD)
@@ -42,4 +56,3 @@ clean:
 	rm $(BIN)
 	rm $(COVERAGE_OUT)
 	rm $(COVERAGE_HTML)
-
